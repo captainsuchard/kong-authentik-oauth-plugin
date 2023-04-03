@@ -1,11 +1,11 @@
 package = "kong-internal-db-auth"
 version = "2.1.1-1"
 source = {
-   url = "git://github.com/wisdom-oss/kong-internal-db-auth.git",
+   url = "git://github.com/captainsuchard/kong-authentik-oauth-plugin.git",
    branch = "main"
 }
 description = {
-   homepage = "https://github.com/wisdom-oss/kong-internal-db-auth",
+   homepage = "https://github.com/captainsuchard/kong-authentik-oauth-plugin",
    license = "MIT"
 }
 build = {
