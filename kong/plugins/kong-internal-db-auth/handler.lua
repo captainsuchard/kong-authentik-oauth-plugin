@@ -17,6 +17,10 @@ function plugin:access(plugin_conf)
         return kong.response.exit(401, [[{"httpCode": 401, "httpError": "Unauthorized", "error": "api-gateway.NO_AUTHORIZATION", "errorName": "No Authorization Information", "errorDescription": "The request did not contain the needed authorization information"}]])
     end
     local scheme, host, port, path = unpack(http:parse_uri(plugin_conf.intospection_url))
+    kong.log(scheme)
+    kong.log(host)
+    kong.log(port)
+    kong.log(path)
     local httpc = http.new()
     httpc:set_timeout(10000)
     httpc:connect(host, port)    
@@ -36,10 +40,10 @@ function plugin:access(plugin_conf)
         return kong.response.exit(500, [[{"httpCode": 500, "httpError": "Internal Server Error", "error": "api-gateway.INTERNAL_ERROR", "errorName": "Internal Error", "errorDescription": "No Response received"}]])
     end
 
-    if response.status > 299 then 
+    if response.status > 299 then
         return kong.response.exit(response.status, response.body)
     end
-
+    kong.log(response)
     local response_body = response:read_body()
     local status, response_json = pcall(cjson.decode, response_body)
 
