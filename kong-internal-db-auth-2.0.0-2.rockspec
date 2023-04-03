@@ -1,5 +1,5 @@
 package = "kong-internal-db-auth"
-version = "2.0.0-1"
+version = "2.0.0-2"
 source = {
    url = "git+https://github.com/wisdom-oss/kong-internal-db-auth.git"
 }
