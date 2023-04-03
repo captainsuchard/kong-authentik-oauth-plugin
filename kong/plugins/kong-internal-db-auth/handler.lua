@@ -56,8 +56,10 @@ function plugin:access(plugin_conf)
     else
         local groups = response_json["groups"]
         local str = table.concat(groups,", ")
+        local user = response_json["preferred_username"]
         kong.log.err(str)
         kong.service.request.set_header("X-Authenticated-Groups", str)
+        kong.service.request.set_header("X-Authenticated-User", user)
     end
 end
 
