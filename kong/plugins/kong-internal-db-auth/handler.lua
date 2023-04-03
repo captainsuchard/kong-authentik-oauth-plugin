@@ -51,8 +51,9 @@ function plugin:access(plugin_conf)
         return kong.response.exit(401, [[{"httpCode": 401, "httpError": "Unauthorized", "error": "api-gateway.UNAUTHORIZED", "errorName": "Unauthorized", "errorDescription": "The bearer token set in the request is not valid"}]])
     else
         local groups = response_json['groups']
-        kong.log.err(table.concat(groups,", "))
-        kong.service.request.set_header("X-Authenticated-Groups", table.concat(groups,", "))
+        local str = table.concat(groups,", ")
+        kong.log.err(str)
+        kong.service.request.set_header("X-Authenticated-Groups", str)
     end
 end
 
@@ -81,7 +82,7 @@ function plugin:get_access_token()
     if authrorization_header then
         local iterator, iterator_err = re_gmatch(authrorization_header, "\\s*[Bb]earer\\s+(.+)")
         if not iterator then
-            return nil, iter_err
+            return nil, iterator_err
         end
 
         local m, err = iterator()
